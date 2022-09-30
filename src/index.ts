@@ -26,12 +26,12 @@ export interface MarketMakerParams {
   network: 'mainnet' | 'testnet';
 }
 
-const client = axios.create({
+const geckoClient = axios.create({
   baseURL: 'https://api.coingecko.com/api/v3/',
 });
 
 export const getPrice = async (asset: string) => {
-  return client
+  return geckoClient
     .get('simple/price', {
       params: {
         ids: asset,
@@ -52,6 +52,7 @@ async function makeMarket(params: MarketMakerParams) {
     orderDelayMs,
     network
   } = params;
+
   while (true) {
     const indexPrice = await getPrice(coinGeckoName);
 
